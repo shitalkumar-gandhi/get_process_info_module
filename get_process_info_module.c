@@ -3,10 +3,10 @@
 #include <linux/sched/signal.h>
 
 static long int pid;
-module_param(pid, long, 0);
+module_param(pid, long, S_IRUSR);
 MODULE_PARM_DESC(pid, "A long integer for process id");
 
-char buffer[256];
+char buffer[256] = {0};
 char *get_task_state(long state)
 {
   switch (state) {
@@ -56,7 +56,6 @@ static int get_process_info_init(void)
 {
   struct task_struct *task = NULL;
   struct pid *pid_struct = NULL;
-  struct cred *cred = current_cred();
   pr_info("%s: intialize print_process_info module \n", __func__);
 
   pid_struct = find_get_pid(pid);
@@ -76,14 +75,10 @@ static int get_process_info_init(void)
     pr_info("CPU time spent in process in user : %lli\n", task->utime);
     pr_info("CPU time spent in process in kernel : %lli\n", task->stime);
     pr_info("Process flags : %u\n", task->flags);
-    //pr_info("Process credentials gorup id : %u\n", (unsigned int)cred->gid);
-    pr_info("Process credentials user id : %d\n", cred->uid);
     pr_info("Process code segment start = 0x%lx, end = 0x%lx\n"
             "Process data  segment start = 0x%lx, end = 0x%lx\n"
             "Process stack segment start = 0x%lx\n", mm->start_code, mm->end_code, mm->start_data, mm->end_data, mm->start_stack);
-    //pr_info("File system mask of process = %d", fs->umask);
     pr_info("Threded group id of process = %d\n", task->tgid);
-
   }
   else
   {
@@ -95,6 +90,7 @@ static int get_process_info_init(void)
 static void get_process_info_exit(void)
 {
   pr_info("%s: exit from print_process_info module\n", __func__);
+  return;
 }
 
 module_init(get_process_info_init);

@@ -1,10 +1,9 @@
 # README
 
-This is simple kernel module which will print all the infomation of specific process.
-User has to give process id as an argument while inserting this module into the system.
+This is a simple kernel module which will print all the information of specific process.
+The user has to give process id as an argument while inserting this module into the system.
 
 ## Compilation (Building the .ko module)
-
 ```
 make
 ```
@@ -24,15 +23,13 @@ insmod get_process_info_module.ko pid=<process id num> or modprobe get_process_i
 rmmod get_process_info_module.ko or modprobe -r get_process_info_module.ko
 ```
 
-# Log messages
+## Log messages
 User can see all the module messages into kernel log using dmesg command.
-
 ```
 dmesg
 ```
 
-# Test result
-
+## Test result
 ```
 shital@ubuntu:~/Desktop/driver$ dmesg 
 [  118.262400] get_process_info_exit: exit from print_process_info module
