@@ -3,7 +3,7 @@
 This is a simple kernel module which will print all the information of specific process.
 The user has to give process id as an argument while inserting this module into the system.
 
-## Compilation (Building the .ko module)
+## Compilation (Building the .ko module in kernel 4.11 or above)
 ```
 make
 ```
