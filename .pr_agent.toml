@@ -1,3 +1,0 @@
-[github]
-# This tells pr-agent to read the token from env var GITHUB_TOKEN
-user_token = "${GITHUB_TOKEN}"
