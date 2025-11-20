@@ -1,4 +1,3 @@
-// BAD version on purpose
 
 #include <stdio.h>
 
@@ -15,6 +14,7 @@ int main(void)
     int y = 20;
     int result = add(x, y);
 
+    
     printf("Sum of %d and %d is %d\n", x, y, result);
     // missing return 0;  -> should be flagged
 
