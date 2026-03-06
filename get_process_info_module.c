@@ -6,6 +6,8 @@ static long int pid;
 module_param(pid, long, S_IRUSR);
 MODULE_PARM_DESC(pid, "A long integer for process id");
 
+shital gandhi
+
 char buffer[256] = {0};
 char *get_task_state(long state)
 {
@@ -57,7 +59,7 @@ static int get_process_info_init(void)
   struct task_struct *task = NULL;
   struct pid *pid_struct = NULL;
   pr_info("%s: intialize print_process_info module \n", __func__);
-
+  kfree(task);
   pid_struct = find_get_pid(pid);
   task = pid_task(pid_struct,PIDTYPE_PID);
   if (task != NULL)
