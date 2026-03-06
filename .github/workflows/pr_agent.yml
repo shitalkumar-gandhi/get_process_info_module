@@ -1,0 +1,12 @@
+- name: PR Agent Action
+        uses: qodo-ai/pr-agent@main
+        env:
+          # Tell the agent to use Gemini
+          CONFIG.MODEL: "gemini/gemini-2.0-flash"
+          # Provide the Gemini Key
+          GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Use the default GitHub token for posting comments
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Enable auto tools
+          github_action_config.auto_review: "true"
+          github_action_config.auto_describe: "true"
