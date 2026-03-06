@@ -1,12 +1,32 @@
-- name: PR Agent Action
+name: PR Agent Reviewer
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+  issue_comment:
+    types: [created]
+
+jobs:
+  pr_agent_job:
+    if: ${{ github.event.sender.type != 'Bot' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    steps:
+      - name: PR Agent Action
         uses: qodo-ai/pr-agent@main
         env:
-          # Tell the agent to use Gemini
-          CONFIG.MODEL: "gemini/gemini-2.0-flash"
-          # Provide the Gemini Key
+          # Use this combined string to override everything at once
+          PR_CONFIG: "config.model=gemini/gemini-2.0-flash, config.fallback_models=[gemini/gemini-2.0-flash]"
+          
+          # Your Gemini Key from Google AI Studio
           GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # Use the default GitHub token for posting comments
+          
+          # Use the default token provided by GitHub Actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Enable auto tools
+          
+          # Set auto triggers
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
+          github_action_config.auto_improve: "true"
